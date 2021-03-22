@@ -72,7 +72,7 @@ function App() {
   return (
     <Router>
       <div className="app">
-        <NavBar totalItems={cart.total_items} />
+        <NavBar totalItems={cart.totalitems} />
         <Switch>
           <Route exact path="/">
             <Products products={products} onAddToCart={handleAddToCart} />;
