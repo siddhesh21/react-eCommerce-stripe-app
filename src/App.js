@@ -1,9 +1,11 @@
 import { commerce } from "./lib/commerce";
+import { CssBaseline } from "@material-ui/core";
 import { Products, NavBar, Cart, Checkout } from "./components";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 function App() {
+  const [mobileOpen, setMobileOpen] = React.useState(false);
   const [products, setProducts] = useState([]);
   const [cart, setCart] = useState({});
   const [order, setOrder] = useState({});
@@ -19,27 +21,27 @@ function App() {
   };
 
   const handleAddToCart = async (productId, quantity) => {
-    const { cart } = await commerce.cart.add(productId, quantity);
+    const item = await commerce.cart.add(productId, quantity);
 
-    setCart(cart);
+    setCart(item.cart);
   };
 
-  const handleUpdateCartQty = async (productId, quantity) => {
-    const { cart } = await commerce.cart.update(productId, { quantity });
+  const handleUpdateCartQty = async (lineItemId, quantity) => {
+    const response = await commerce.cart.update(lineItemId, { quantity });
 
-    setCart(cart);
+    setCart(response.cart);
   };
 
-  const handleRemoveFromCart = async (productId) => {
-    const { cart } = await commerce.cart.remove(productId);
+  const handleRemoveFromCart = async (lineItemId) => {
+    const response = await commerce.cart.remove(lineItemId);
 
-    setCart(cart);
+    setCart(response.cart);
   };
 
   const handleEmptyCart = async () => {
-    const { cart } = await commerce.cart.empty();
+    const response = await commerce.cart.empty();
 
-    setCart(cart);
+    setCart(response.cart);
   };
 
   const refreshCart = async () => {
@@ -56,7 +58,7 @@ function App() {
       );
 
       setOrder(incomingOrder);
-      refreshCart();
+      // refreshCart();
     } catch (error) {
       setErrorMessage(error.data.error.message);
     }
@@ -69,10 +71,16 @@ function App() {
 
   console.log(cart);
 
+  const handleDrawerToggle = () => setMobileOpen(!mobileOpen);
+
   return (
     <Router>
-      <div className="app">
-        <NavBar totalItems={cart.totalitems} />
+      <div className="app" style={{ display: "flex" }}>
+        <CssBaseline />
+        <NavBar
+          totalItems={cart.total_items}
+          handleDrawerToggle={handleDrawerToggle}
+        />
         <Switch>
           <Route exact path="/">
             <Products products={products} onAddToCart={handleAddToCart} />;

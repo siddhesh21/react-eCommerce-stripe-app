@@ -3,7 +3,7 @@ import { Typography, List, ListItem, ListItemText } from "@material-ui/core";
 
 function Review({ checkoutToken }) {
   return (
-    <div>
+    <>
       <Typography variant="h6" gutterBottom>
         Order Summary
       </Typography>
@@ -27,7 +27,7 @@ function Review({ checkoutToken }) {
           </Typography>
         </ListItem>
       </List>
-    </div>
+    </>
   );
 }
 

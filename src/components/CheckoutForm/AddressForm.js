@@ -8,7 +8,7 @@ import {
   Grid,
 } from "@material-ui/core";
 import { useForm, FormProvider } from "react-hook-form";
-import FormInput from "./Checkout/CustomTextField";
+import FormInput from "./CustomTextField";
 
 import { commerce } from "../../lib/commerce";
 import { Link } from "react-router-dom";

@@ -37,7 +37,10 @@ function Product({ product, onAddToCart }) {
         />
       </CardContent>
       <CardActions disabledSpacing className={classes.cardActions}>
-        <IconButton onClick={() => onAddToCart(product.id, 1)} aria-label="Add to Cart">
+        <IconButton
+          onClick={() => onAddToCart(product.id, 1)}
+          aria-label="Add to Cart"
+        >
           <AddShoppingCart />
         </IconButton>
       </CardActions>

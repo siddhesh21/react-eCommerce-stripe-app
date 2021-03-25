@@ -28,20 +28,31 @@ function Checkout({ cart, order, onCaptureCheckout, error }) {
   const history = useHistory();
 
   useEffect(() => {
-    const generateToken = async () => {
-      try {
-        const token = await commerce.checkout.generateToken(cart.id, {
-          type: "cart",
-        });
+    if (cart.id) {
+      const generateToken = async () => {
+        try {
+          const token = await commerce.checkout.generateToken(cart.id, {
+            type: "cart",
+          });
 
-        setCheckoutToken(token);
-      } catch (error) {
-        history.pushState("/");
-      }
-    };
+          setCheckoutToken(token);
+        } catch {
+          if (activeStep !== steps.length) history.push("/");
+        }
+      };
 
-    generateToken();
+      generateToken();
+    }
   }, [cart]);
+
+  const nextStep = () => setActiveStep((prevActiveStep) => prevActiveStep + 1);
+  const backStep = () => setActiveStep((prevActiveStep) => prevActiveStep - 1);
+
+  const next = (data) => {
+    setShippingData(data);
+
+    nextStep();
+  };
 
   let Confirmation = () =>
     order.customer ? (
@@ -80,14 +91,7 @@ function Checkout({ cart, order, onCaptureCheckout, error }) {
     );
   }
 
-  const nextStep = () => setActiveStep((prevActiveStep) => prevActiveStep + 1);
-  const backStep = () => setActiveStep((prevActiveStep) => prevActiveStep - 1);
-
-  const next = (data) => {
-    setShippingData(data);
-
-    nextStep();
-  };
+  // const Confirmation = () => <div>PURCHASE IS SUCCESSFUL & CONFIRMED</div>;
 
   const Form = () =>
     activeStep === 0 ? (
