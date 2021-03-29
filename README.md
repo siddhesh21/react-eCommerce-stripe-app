@@ -1,4 +1,7 @@
-# Getting Started with Create React App
+# Deployed e-Commerce App which uses *STRIPE* with COMMERCE.JS where you will get direct purchase mail, also has international shoipping additive functionality. 
+# Check it out here --> https://project-ecommerce-6ef06.web.app
+
+## Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
